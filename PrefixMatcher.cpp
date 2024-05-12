@@ -1,5 +1,7 @@
 #include "PrefixMatcher.h"
 
+PrefixMatcher::TrieNode::TrieNode() : routerNumber(-1) {}
+
 PrefixMatcher::PrefixMatcher() : root(new TrieNode()) {}
 
 PrefixMatcher::~PrefixMatcher() { destroyTrie(root); }
