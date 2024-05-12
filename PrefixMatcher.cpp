@@ -26,9 +26,9 @@ void PrefixMatcher::insert(string address, int routerNumber) {
     if (!current->children.count(c)) {
       current->children[c] = new TrieNodeM();
     }
+    current->children[c]->routerNumber = routerNumber;
     current = current->children[c];
   }
-  current->routerNumber = routerNumber;
 }
 
 void PrefixMatcher::destroyTrie(TrieNodeM* node) {
