@@ -8,17 +8,17 @@
 
 using namespace std;
 
-class TrieNode {
+class TrieNodeC {
  public:
   bool isWord;
-  unordered_map<char, TrieNode*> children;
+  unordered_map<char, TrieNodeC*> children;
 
-  TrieNode();
+  TrieNodeC();
 };
 
 class Autocomplete {
  private:
-  TrieNode* root;
+  TrieNodeC* root;
 
  public:
   Autocomplete();
@@ -30,9 +30,9 @@ class Autocomplete {
   vector<string> getSuggestions(string partWord);
 
  private:
-  void destroyTrie(TrieNode* node);
+  void destroyTrie(TrieNodeC* node);
 
-  vector<string> collectSuggestions(TrieNode* node, string prefix);
+  vector<string> collectSuggestions(TrieNodeC* node, string prefix);
 };
 
 #endif

@@ -1,13 +1,13 @@
 #include "PrefixMatcher.h"
 
-PrefixMatcher::TrieNode::TrieNode() : routerNumber(-1) {}
+TrieNodeM::TrieNodeM() : routerNumber(-1) {}
 
-PrefixMatcher::PrefixMatcher() : root(new TrieNode()) {}
+PrefixMatcher::PrefixMatcher() : root(new TrieNodeM()) {}
 
 PrefixMatcher::~PrefixMatcher() { destroyTrie(root); }
 
 int PrefixMatcher::selectRouter(string networkAddress) {
-  TrieNode* current = root;
+  TrieNodeM* current = root;
   for (char c : networkAddress) {
     if (!current->children.count(c)) {
       return -1;  // no match
@@ -21,20 +21,17 @@ void PrefixMatcher::insert(string address, int routerNumber) {
   if (address.empty()) {
     return;  // do not insert empty addresses
   }
-  TrieNode* current = root;
+  TrieNodeM* current = root;
   for (char c : address) {
-    if (!isalnum(c)) {
-      return;  // do not insert non alphanumeric characters
-    }
     if (!current->children.count(c)) {
-      current->children[c] = new TrieNode();
+      current->children[c] = new TrieNodeM();
     }
     current = current->children[c];
   }
   current->routerNumber = routerNumber;
 }
 
-void PrefixMatcher::destroyTrie(TrieNode* node) {
+void PrefixMatcher::destroyTrie(TrieNodeM* node) {
   for (auto& child : node->children) {
     destroyTrie(child.second);
   }

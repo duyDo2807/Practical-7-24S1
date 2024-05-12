@@ -6,20 +6,18 @@
 #include <unordered_map>
 #include <vector>
 
-#include "Autocomplete.h"
-
 using namespace std;
 
+class TrieNodeM {
+ public:
+  int routerNumber;
+  unordered_map<char, TrieNodeM*> children;
+
+  TrieNodeM();
+};
 class PrefixMatcher {
  private:
-  struct TrieNode {
-    int routerNumber;
-    unordered_map<char, TrieNode*> children;
-
-    TrieNode();
-  };
-
-  TrieNode* root;
+  TrieNodeM* root;
 
  public:
   PrefixMatcher();
@@ -31,7 +29,7 @@ class PrefixMatcher {
   void insert(string address, int routerNumber);
 
  private:
-  void destroyTrie(TrieNode* node);
+  void destroyTrie(TrieNodeM* node);
 };
 
 #endif

@@ -1,8 +1,8 @@
 #include "Autocomplete.h"
 
-TrieNode::TrieNode() : isWord(false) {}
+TrieNodeC::TrieNodeC() : isWord(false) {}
 
-Autocomplete::Autocomplete() : root(new TrieNode) {}
+Autocomplete::Autocomplete() : root(new TrieNodeC) {}
 
 Autocomplete::~Autocomplete() { destroyTrie(root); }
 
@@ -10,13 +10,10 @@ void Autocomplete::insert(string word) {
   if (word.empty()) {
     return;  // do not insert empty string
   }
-  TrieNode* current = root;
+  TrieNodeC* current = root;
   for (char c : word) {
-    if (isalpha(c)) {
-      return;  // do not insert non alphabetic characters
-    }
     if (!current->children.count(c)) {
-      current->children[c] = new TrieNode();
+      current->children[c] = new TrieNodeC();
     }
     current = current->children[c];
   }
@@ -24,7 +21,7 @@ void Autocomplete::insert(string word) {
 }
 
 vector<string> Autocomplete::getSuggestions(string partWord) {
-  TrieNode* current = root;
+  TrieNodeC* current = root;
   for (char c : partWord) {
     if (!current->children.count(c)) {
       return {};  // no suggestion
@@ -34,14 +31,15 @@ vector<string> Autocomplete::getSuggestions(string partWord) {
   return collectSuggestions(current, partWord);
 }
 
-void Autocomplete::destroyTrie(TrieNode* node) {
+void Autocomplete::destroyTrie(TrieNodeC* node) {
   for (auto& child : node->children) {
     destroyTrie(child.second);
   }
   delete node;
 }
 
-vector<string> Autocomplete::collectSuggestions(TrieNode* node, string prefix) {
+vector<string> Autocomplete::collectSuggestions(TrieNodeC* node,
+                                                string prefix) {
   vector<string> suggestions;
   if (node->isWord) {
     suggestions.push_back(prefix);
