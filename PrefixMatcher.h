@@ -18,6 +18,7 @@ class TrieNodeM {
 class PrefixMatcher {
  private:
   TrieNodeM* root;
+  void destroyTrie(TrieNodeM* node);
 
  public:
   PrefixMatcher();
@@ -27,9 +28,6 @@ class PrefixMatcher {
   int selectRouter(string networkAddress);
 
   void insert(string address, int routerNumber);
-
- private:
-  void destroyTrie(TrieNodeM* node);
 };
 
 #endif
